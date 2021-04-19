@@ -131,7 +131,7 @@ const SignUp = ({ navigation }) => {
         alignSelf:"flex-start",
         alignItems:'center',
         marginLeft:"16%",
-        backgroundColor:"#00cc66",
+        backgroundColor:"#70af85",
         position:'relative',
         zIndex:1,
         elevation:1

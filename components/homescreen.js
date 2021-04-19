@@ -12,8 +12,8 @@ import SignUp from './SignUp';
 const Home = ({ navigation }) => {
   
     return (
-<View>
-        <Text style={{textAlign:"center", }}>
+<View style={{backgroundColor:"#FFDAC1", height:"100%"}}>
+        <Text style={{textAlign:"center", fontWeight:"bold", fontSize:65}}>
         HOME SCREEN
         </Text>
         

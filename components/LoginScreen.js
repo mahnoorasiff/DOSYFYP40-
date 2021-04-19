@@ -95,7 +95,7 @@ source={require('../assets/flowertreelogin.png')}/>
         alignSelf:"flex-start",
         alignItems:'center',
         marginLeft:"15%",
-        backgroundColor:"#00cc66",
+        backgroundColor:"#70af85",
         flex:1,
         position:'absolute',
         elevation:1,
