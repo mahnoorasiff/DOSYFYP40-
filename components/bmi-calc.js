@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import {
   StyleSheet,
@@ -8,10 +7,12 @@ import {
   TouchableOpacity,
   Modal,
   Pressable,
+  ImageBackground,
+  Dimensions
 } from "react-native";
+import Constants from 'expo-constants';
+import { ScrollView } from "react-native-gesture-handler";
 
-
-import HeaderForCalorie from "../components/HeaderCalorie";
 
 
 export default function bmi_calc() {
@@ -27,7 +28,7 @@ export default function bmi_calc() {
     if (val > 0 || val == "") {
       setWeight(val * 1);
     } else {
-      alert("Please enter value greater then 0");
+      alert("Please enter a value greater then 0");
     }
   };
 
@@ -40,10 +41,10 @@ export default function bmi_calc() {
   };
 
   const calculateBMI = () => {
-    ans = weight / (height * height);
+    var ans = weight / (height * height);
     ans = Math.round(ans * 10) / 10;
-    s_weight = 18.5 * (height * height);
-    e_weight = 24.9 * (height * height);
+    var s_weight = 18.5 * (height * height);
+    var e_weight = 24.9 * (height * height);
     s_weight = Math.round(s_weight * 100) / 100;
     e_weight = Math.round(e_weight * 100) / 100;
     setBmi(ans);
@@ -67,8 +68,11 @@ export default function bmi_calc() {
   };
 
   return (
+    <ScrollView>
     <View style={styles.container}>
-      <HeaderForCalorie title="BMI Calculator" />
+      <ImageBackground
+                    style={styles.bgView}
+                    source={require("./screenspics/bmibg.png")}>
 
       <Modal
         visible={showModal}
@@ -124,39 +128,39 @@ export default function bmi_calc() {
         </View>
       </Modal>
 
-      <View>
-        <View style={{ flexDirection: "row" }}>
-          <View style={styles.card2}>
-            <Text
-              style={{ alignSelf: "center", fontWeight: "bold", fontSize: 15 }}
-            >
-              Enter Weight :
-            </Text>
-          </View>
-          <TextInput
-            keyboardType="numeric"
-            style={styles.inputStyle}
-            placeholder="in kg"
-            onChangeText={(val) => updateWeight(val)}
-          />
-        </View>
 
-        <View style={{ flexDirection: "row" }}>
-          <View style={styles.card2}>
-            <Text
-              style={{ alignSelf: "center", fontWeight: "bold", fontSize: 15 }}
-            >
-              Enter Height :
-            </Text>
+
+
+      <View style={{ flexDirection: "row" , justifyContent:"space-evenly" , alignItems:"center", 
+      marginTop:"35%"
+      }}>
+            <View >
+            <TextInput
+              keyboardType="numeric"
+              style={styles.inputStyle}
+              placeholder="Enter Weight in kg"
+              returnKeyType="next"
+              onChangeText={(val) => updateWeight(val)}
+            />
           </View>
-          <TextInput
-            keyboardType="numeric"
-            style={styles.inputStyle}
-            placeholder="in m"
-            onChangeText={(val) => updateHeight(val)}
-          />
-        </View>
-      </View>
+          </View>
+          <View style={{ flexDirection: "row", justifyContent:"space-evenly"  , alignItems:"center" }}>
+            <View >
+            <TextInput
+              keyboardType="numeric"
+              style={styles.inputStyle}
+              placeholder="Enter height in meters"
+              keyboardType="numeric"
+              returnKeyType="done"
+              onChangeText={(val) => updateHeight(val)}
+            />
+          </View>
+          </View>
+
+
+
+
+
 
       <View>
         <TouchableOpacity
@@ -174,14 +178,30 @@ export default function bmi_calc() {
           </View>
         </TouchableOpacity>
       </View>
+      </ImageBackground>
     </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+
   container: {
-    flex: 1,
-    backgroundColor: "#EEFBDD", //pastel green background
+    width:Dimensions.get('window').width,
+    height:Dimensions.get('window').height,
+    backgroundColor: "#74a3ff", //pastel green background
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: Constants.statusBarHeight,
+    padding: 0,
+    
+  },
+
+  bgView: {
+  resizeMode:"cover",  
+  width:"100%",
+  height:"100%",
+  
   },
 
   inputHandling: {
@@ -200,27 +220,24 @@ const styles = StyleSheet.create({
     color: "white",
   },
 
-  dropLow: {
-    justifyContent: "center",
-    alignItems: "center",
-    flex: 1,
-  },
 
-  picker: {
-    width: 300,
-    height: 50,
-    borderColor: "black",
-    borderWidth: 2,
-  },
   inputStyle: {
-    borderColor: "#4f6349",
-    borderWidth: 2,
-    borderRadius: 10,
-    padding: 10,
-    marginLeft: 50,
-    marginBottom: 1,
-    width: 150,
+    borderColor: "#777",
+    borderWidth: 1,
+    padding: 22,
+    marginBottom: 20,
+    width: 250,
+    borderRadius:10,
+    //alignContent: 'center',
     alignSelf: "center",
+    shadowColor: "black",
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 10,
+    shadowOpacity: 0.26,
+    elevation: 5, //android shadow property
+    //backgroundColor: "#F7F4F1",
+      backgroundColor: "#EEE8AA",
+      opacity:0.95
   },
   card2: {
     //shadowColor: "black",
@@ -229,10 +246,9 @@ const styles = StyleSheet.create({
     //shadowOpacity: 0.26,
     //elevation: 5, //android shadow property
     backgroundColor: "#EEFBDD",
-    padding: 7,
-    margin: 10,
-    borderRadius: 10,
-    width: 153,
+    
+    margin: "1%",
+    width: "40%",
     color: "#4f6349",
   },
   pick: {
@@ -252,30 +268,28 @@ const styles = StyleSheet.create({
     marginLeft: 50,
   },
   touchbutton: {
-    marginTop: "10%",
-    padding: "3%",
-    backgroundColor: "#4f6349", //dark green
-    width: "35%",
+    marginTop:"10%",
+    height:60,
+    backgroundColor: "#ffb7ba",
+    width: "46%",
+    alignSelf:"center",
     alignItems: "center",
     justifyContent: "center",
-    marginLeft: "33%",
-    marginTop: "20%",
-    borderRadius: 10,
-    color: "white",
-    borderColor: "blue",
+    borderRadius: 35,
+    opacity:0.88
   },
   disabledbutton: {
-    marginTop: "10%",
-    padding: "3%",
+    padding: "5%",
     backgroundColor: "#6b8563",
     width: "35%",
     alignItems: "center",
     justifyContent: "center",
     marginLeft: "33%",
-    marginTop: "20%",
+    marginTop: "15%",
     borderRadius: 10,
     color: "white",
     borderColor: "blue",
+    opacity:0
   },
   buttontext: {
     fontWeight: "bold",
@@ -328,5 +342,5 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     borderWidth: 2,
     borderColor: "#d4d2d2",
-  },
+  }
 });

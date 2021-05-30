@@ -19,9 +19,9 @@ export default class MPRecipes extends React.Component {
   onPressRecipe = item => {
     var photourl=item.photo_url
     this.props.navigation.navigate('Meal Planner', { url:item.photo_url })
-    this.storeData(photourl)
     
-    console.log("picture..", item.photo_url)
+    
+    //console.log("picture..", item.photo_url)
   };
 
 
@@ -47,10 +47,11 @@ export default class MPRecipes extends React.Component {
 
   render() {
 
-    const item = this.props.route.params.card
+    const item = this.props.route.params.card;
     const recipesArray = getRecipes(item.id);
     return (  
       <View>
+      
          {
       this.props.navigation.setOptions({
         headerTitle: () => (
